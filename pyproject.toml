@@ -7,7 +7,7 @@ name = "retico-sam"
 dynamic = ["version"]
 dependencies = [
     "retico-core>=2.0.0",
-    "retico-vision>=0.1.0",
+    "retico-vision @ git+https://github.com/retico-team/retico-vision.git",
     "torchvision>=0.8",
     "torch<2.9",
     "ultralytics>=8.0.0",
