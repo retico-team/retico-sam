@@ -13,7 +13,10 @@ The most basic ones needed are:
 Once you have an environment that matches all these requirements you can run the following command to install SAM 
 * pip install git+https://github.com/facebookresearch/segment-anything.git
 
-As well, it is required you install a checkpoint for whichever model version you would like to use. The default model is 'vit_h' which can be found here: https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth. This will start a download for that checkpoint. For use you must include the path to the checkpoint when creating the sam module, as demonstrated in the example runner file. 
+Or run the following command to install FastSAM
+* pip install git+https://github.com/CASIA-LMC-Lab/FastSAM 
+
+As well, it is required you install a checkpoint for whichever model version you would like to use. The default model for sam is 'vit_h' which can be found here: https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth. However for FastSAM the default model "YOLOv8x: which can be found here: https://drive.google.com/file/d/1m1sjY4ihXBU1fZXdQ-Xdj-mDltW-2Rqv/view. This will start a download for that checkpoint. For use you must include the path to the checkpoint when creating the sam module, as demonstrated in the example runner file. 
 
 If you would like to use a different model you must download the corresponding checkpoint and update the path, as well as, running the python command with the matching model name i.e. python runner_sam.py vit_l
 
@@ -45,9 +48,9 @@ sys.path.append(os.environ['VISION'])
 from retico_core.debug import DebugModule   
 from retico_vision.vision import WebcamModule  
 from retico_vision.vision import ExtractObjectsModule   
-from retico_sam.sam import SAMModule  
-## OR
-# from retico_sam.hfsam import SAMModule
+# from retico_sam.fastsam import SAMModule  
+## OR for fastSAM
+# from retico_sam.fastsam import FastSAMModule
   
 path_var = *** REPLACE WITH PATH TO YOUR CHECKPOINT ***
 
@@ -55,6 +58,7 @@ path_var = *** REPLACE WITH PATH TO YOUR CHECKPOINT ***
 webcam = WebcamModule()  
 sam = SAMModule(model='h', path_to_chkpnt=path_var, use_bbox=True)  
 # sam = SAMModule(show=False, use_bbox=True)   # if hfsam
+# sam = FastSAMModule(model='h', path_to_chkpnt=path_var, use_bbox=True # if fastsam
 extractor = ExtractObjectsModule(num_obj_to_display=20)  
 debug = DebugModule()  
 
