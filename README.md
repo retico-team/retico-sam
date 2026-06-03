@@ -3,7 +3,7 @@ A ReTico module for SAM. See below for more information on the models.
 
 As suggested in [SAM](https://github.com/facebookresearch/segment-anything) it is highly recommended to use SAM with a GPU, but CPU only is possible, it will just take much longer to run.
 
-### Installation and Requirements
+## Installation and Requirements
 Most requirements can be found inside 'requirements.txt'.
 The most basic ones needed are:
 * python >= 3.8
