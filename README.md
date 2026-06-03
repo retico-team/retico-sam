@@ -1,38 +1,55 @@
 # retico_sam
 A ReTico module for SAM. See below for more information on the models.
 
-As suggested in [SAM](https://github.com/facebookresearch/segment-anything) it is highly recommended to use SAM with a GPU, but CPU only is possible, it will just take much longer.
+As suggested in [SAM](https://github.com/facebookresearch/segment-anything) it is highly recommended to use SAM with a GPU, but CPU only is possible, it will just take much longer to run.
 
-### Installation and requirements
-Most requirements are within the 'requirements.txt'.
+### Installation and Requirements
+Most requirements can be found inside 'requirements.txt'.
 The most basic ones needed are:
 * python >= 3.8
 * pytorch >= 1.7
 * torchvision >= 0.8
 
 Once you have an environment that matches all these requirements you can run the following command to install SAM 
-* pip install git+https://github.com/facebookresearch/segment-anything.git
+* ```pip install git+https://github.com/facebookresearch/segment-anything.git```
 
 Or run the following command to install FastSAM
-* pip install git+https://github.com/CASIA-LMC-Lab/FastSAM 
+* ```pip install git+https://github.com/CASIA-LMC-Lab/FastSAM```
 
-As well, it is required you install a checkpoint for whichever model version you would like to use. The default model for sam is 'vit_h' which can be found here: https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth. However for FastSAM the default model "YOLOv8x: which can be found here: https://drive.google.com/file/d/1m1sjY4ihXBU1fZXdQ-Xdj-mDltW-2Rqv/view. This will start a download for that checkpoint. For use you must include the path to the checkpoint when creating the sam module, as demonstrated in the example runner file. 
+You should also install a checkpoint for whichever model version you would like to use. The default model for sam is 'vit_h' which can be found [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth). However for FastSAM the default model is 'YOLOv8x' which can be found [here](https://drive.google.com/file/d/1m1sjY4ihXBU1fZXdQ-Xdj-mDltW-2Rqv/view). This will start a download for that checkpoint. To use it you must include the path to the checkpoint when creating the sam module, as demonstrated in the example runner file. 
 
-If you would like to use a different model you must download the corresponding checkpoint and update the path, as well as, running the python command with the matching model name i.e. python runner_sam.py vit_l
+If you would like to use a different model you must download the corresponding checkpoint and update the path, as well as, running the python command with the matching model name i.e. `python runner_sam.py vit_l`
 
 You will also need to have retico modules on your local machine, specifically ensure you have retico_vision and retico_core. As seen in the example these are saved in the os.environ.
 
-#### Important Parameters
-The SAM module can take the following parameters: model, path_to_chkpnt, use_bbox, use_seg
-* model = model type, the user can enter either 'h', 'l', or 'b' NOTE: the user must match the model type with the corresponding checkpoint
-* path_to_chkpnt = the path to the model checkpoint that was downloaded by the user; it is suggested to store the checkpoint file in the same directory as the runner file 
-* use_bbox = boolean value to use bounding box segmentation; default to false 
-* use_seg = boolean value to use segmentation mask; default to false 
+## Modules
 
-The Extract Objects module allows the user to determine how many images to plot to be displayed
-* num_obj_to_display = number of extracted segmentation objects to display in the plot that will be saved to a folder named 'extracted_objects' NOTE: if the folder doesn't exist it will be created, otherwise it will just store the new image in the folder
+### SAMModule and FastSAMModule
+
+**Model Options:** `'h' (vit_h)`, `'l' (vit_l)`, `'b' (vit_b)`
+
+#### Arguments
+The SAM module can take the following parameters: model, path_to_chkpnt, use_bbox, use_seg
+* `model`(str): model type, no default.
+NOTE: the user must match the model type with the corresponding checkpoint
+* `path_to_chkpnt` (str): the path to the model checkpoint that was downloaded by the user, no default.
+It is suggested to store the checkpoint file in the same directory as the runner file 
+* `use_bbox` (bool): bounding box segmentation; Defaults to False
+* `use_seg` (bool): segmentation mask; Defaults to False
+
+### Hugging Face SAMModule
+
+#### Arguments
+The SAM module can take the following parameters: model, path_to_chkpnt, use_bbox, use_seg
+* `model`(str): model type, defaults to `facebook/sam-vit-base`
+* `show` (bool): visualization support, defaults to False
+* `use_bbox` (bool): bounding box segmentation; Defaults to False
+* `use_seg` (bool): segmentation mask; Defaults to False
 
 ### Example
+**Note:** The example runner uses `ExtractObjectsModule` from `retico_vision`. The Extract Objects module allows the user to determine how many images to plot to be displayed
+* `num_obj_to_display` (int): number of extracted segmentation objects to display in the plot that will be saved to a folder named 'extracted_objects'. If the folder doesn't exist it will be created, otherwise it will just store the new image in the folder
+```
 import sys, os  
 from retico import *  
 
@@ -47,7 +64,8 @@ sys.path.append(os.environ['VISION'])
 
 from retico_core.debug import DebugModule   
 from retico_vision.vision import WebcamModule  
-from retico_vision.vision import ExtractObjectsModule   
+from retico_vision.vision import ExtractObjectsModule
+
 # from retico_sam.fastsam import SAMModule  
 ## OR for fastSAM
 # from retico_sam.fastsam import FastSAMModule
@@ -77,4 +95,5 @@ input()
 webcam.stop()  
 sam.stop()  
 extractor.stop()   
-debug.stop()  
+debug.stop()
+```
