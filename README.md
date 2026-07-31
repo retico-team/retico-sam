@@ -20,6 +20,9 @@ You should also install a checkpoint for whichever model version you would like 
 
 If you would like to use a different model you must download the corresponding checkpoint and update the path, as well as, running the python command with the matching model name i.e. `python runner_sam.py vit_l`
 
+Make sure you install the ReTiCo's sam properly
+* ```pip install git+https://github.com/retico-team/retico-sam/```
+
 You will also need to have retico modules on your local machine, specifically ensure you have retico_vision and retico_core. As seen in the example these are saved in the os.environ.
 
 ## Modules
