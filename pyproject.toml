@@ -6,13 +6,16 @@ build-backend = "setuptools.build_meta"
 name = "retico-sam"
 dynamic = ["version"]
 dependencies = [
-    "retico-core",
-    "retico-vision @ git+https://github.com/retico-team/retico-vision.git",
+    "retico-core>=2.0.0",
+    "retico-vision",
+    "segment-anything",
     "torchvision>=0.8",
     "torch<2.9",
     "ultralytics>=8.0.0",
     "opencv-python>=4.0.0",
     "numpy",
+    "transformers",
+    "supervision",
 ]
 authors = [
     {name = "Cheikh Lame", email = "cheikhlame@u.boisestate.edu"},
@@ -36,3 +39,9 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",
 ]
+
+[project.urls]
+Repository = "https://github.com/retico-team/retico-sam"
+
+[tool.setuptools_scm]
+version_file = "retico_sam/version.py"

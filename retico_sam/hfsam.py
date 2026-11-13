@@ -52,7 +52,8 @@ class SAMModule(retico_core.AbstractModule):
         super().__init__(**kwargs)
 
       
-        self.generator = pipeline("mask-generation", model=model, device=0)
+        device = 0 if torch.cuda.is_available() else -1
+        self.generator = pipeline("mask-generation", model=model, device=device)
         self.queue = deque(maxlen=1)
         self.use_bbox = use_bbox
         self.use_seg = use_seg
